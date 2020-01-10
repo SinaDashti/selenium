@@ -27,7 +27,7 @@ try:
     until(EC.presence_of_element_located\
     ((By.XPATH, "//div[@data-view-name='currentServer']/div[2]/a")))
 except Exception as e:
-    raise
+    print(e)
 
 # start the test
 driver.find_element_by_xpath("//*[@class='start-text']").click()
@@ -36,7 +36,7 @@ driver.find_element_by_xpath("//*[@class='start-text']").click()
 try:
     WebDriverWait(driver, 120).until(EC.url_contains("result"))
 except Exception as e:
-    raise
+    print(e)
 
 # result extraction
 result = driver.find_element_by_xpath(\
