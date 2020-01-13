@@ -1,4 +1,3 @@
-import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,6 +9,7 @@ from bs4 import BeautifulSoup
 pi = []
 dl = []
 up = []
+
 for rep in range(0,3):
         driver = webdriver.Firefox()
         driver.get("https://www.speedtest.net")
