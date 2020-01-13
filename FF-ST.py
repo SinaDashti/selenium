@@ -10,56 +10,56 @@ from bs4 import BeautifulSoup
 pi = []
 dl = []
 up = []
+for rep in range(0,3):
+        driver = webdriver.Firefox()
+        driver.get("https://www.speedtest.net")
 
-driver = webdriver.Firefox()
-driver.get("https://www.speedtest.net")
+        # Waiting for banners and dismiss it
+        try:
+            WebDriverWait(driver, 30).\
+            until(EC.element_to_be_clickable\
+            ((By.XPATH, "//*[@id='_evidon-banner-cookiebutton']"))).click()
+            driver.find_element_by_xpath("//*[@id='_evidon-l3']/button").click()
+        except Exception as e:
+            try:
+                WebDriverWait(driver, 30).\
+                until(EC.element_to_be_clickable\
+                ((By.XPATH, "//*[@id='_ev_opt_out_close']"))).click()
+            except Exception as e:
+                print(e)
 
-# Waiting for banners and dismiss it
-try:
-    WebDriverWait(driver, 30).\
-    until(EC.element_to_be_clickable\
-    ((By.XPATH, "//*[@id='_evidon-banner-cookiebutton']"))).click()
-    driver.find_element_by_xpath("//*[@id='_evidon-l3']/button").click()
-except Exception as e:
-    try:
-        WebDriverWait(driver, 30).\
-        until(EC.element_to_be_clickable\
-        ((By.XPATH, "//*[@id='_ev_opt_out_close']"))).click()
-    except Exception as e:
-        print(e)
+        # waiting for page to be loaded and shows the current server element
+        try:
+            WebDriverWait(driver, 30).\
+            until(EC.presence_of_element_located\
+            ((By.XPATH, "//div[@data-view-name='currentServer']/div[2]/a")))
+        except Exception as e:
+            raise
 
-# waiting for page to be loaded and shows the current server element
-try:
-    WebDriverWait(driver, 30).\
-    until(EC.presence_of_element_located\
-    ((By.XPATH, "//div[@data-view-name='currentServer']/div[2]/a")))
-except Exception as e:
-    raise
+        # start the test
+        driver.find_element_by_xpath("//*[@class='start-text']").click()
 
-# start the test
-driver.find_element_by_xpath("//*[@class='start-text']").click()
+        # wait for the test to be finished
+        try:
+            WebDriverWait(driver, 120).until(EC.url_contains("result"))
+        except Exception as e:
+            print(e)
 
-# wait for the test to be finished
-try:
-    WebDriverWait(driver, 120).until(EC.url_contains("result"))
+        result = BeautifulSoup(driver.page_source, 'lxml')
+        sp = result.find_all('div', class_='result-container-data')[0]
 
-# print(driver.current_url)
-except Exception as e:
-    print(e)
 
-result = BeautifulSoup(driver.page_source, 'lxml')
-sp = result.find_all('div', class_='result-container-data')[0]
+        pi.append(sp.find_all('div', class_='result-data u-align-left')[0].text.split('\n')[1])
+        dl.append(sp.find_all('div', class_='result-data u-align-left')[1].text.split('\n')[1])
+        up.append(sp.find_all('div', class_='result-data u-align-left')[2].text.split('\n')[1])
+
+
+        driver.close()
 
 c1 = 'PING ms'
 c2 = 'DOWNLOAD Mbps'
 c3 = 'UPLOAD Mbps'
 
-pi.append(sp.find_all('div', class_='result-data u-align-left')[0].text.split('\n')[1])
-dl.append(sp.find_all('div', class_='result-data u-align-left')[1].text.split('\n')[1])
-up.append(sp.find_all('div', class_='result-data u-align-left')[2].text.split('\n')[1])
-
 df = pd.DataFrame({c1:pi, c2:dl, c3:up})
 df.index +=1
 print(tabulate(df, headers='keys', tablefmt='psql'))
-# Here in repeat I have added the changes
-driver.close()
