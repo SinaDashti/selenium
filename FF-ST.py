@@ -61,5 +61,5 @@ up.append(sp.find_all('div', class_='result-data u-align-left')[2].text.split('\
 df = pd.DataFrame({c1:pi, c2:dl, c3:up})
 df.index +=1
 print(tabulate(df, headers='keys', tablefmt='psql'))
-#
+# Here in repeat I have added the changes
 driver.close()
