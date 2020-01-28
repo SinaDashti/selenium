@@ -15,7 +15,7 @@ class BasePage():
     def __init__(self, driver):
         self.driver = driver
 
-    def banner_click(self, clickBanner, closeBanner, optionBanner):
+    def banner_click(self, clickBanner, closeBanner, optionBanner, acceptBanner):
 
         try:
             WebDriverWait(self.driver, 30).until(
@@ -28,6 +28,8 @@ class BasePage():
             try:
                 WebDriverWait(self.driver, 30).until(
                     EC.element_to_be_clickable(optionBanner)).click()
+                WebDriverWait(self.driver, 30).until(
+                    EC.element_to_be_clickable(acceptBanner)).click()
             except Exception as e:
                 print("The banner does not allow continue!\n")
 

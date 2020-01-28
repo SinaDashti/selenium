@@ -28,7 +28,7 @@ class OoklaSpeedTest(unittest.TestCase):
 
             banner = BasePage(self.driver)
             banner.banner_click(Locators.CLICK_BANNER, Locators.CLOSE_BANNER,
-                                Locators.OPTION_BANNER)
+                                Locators.OPTION_BANNER, Locators.ACCEPT_BANNER)
 
             server = ServerSelection(self.driver)
             server.server_select(Locators.SERVER_ELEMENT, Locators.SERVER_LIST,
