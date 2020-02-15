@@ -9,7 +9,7 @@ The idea of this project is to write a more clean code, that I have already used
 
 Example:
 
-`python3 main.py 2 "Turin BBBell"`
+`python main.py 2 "Turin BBBell"`
 
 The next steps when I have free time:
 
