@@ -1,6 +1,6 @@
 # selenium
 
-The idea of this project is to write a more clean code, that I have already used during my thesis. Then I tried to make it more functional by using *OOP* and *Page Object Model*. The user can give as an input, the number of repetitions and also the server for the test. 
+The idea of this project is to write a more clean code, that I have already used during my thesis. Then I tried to make it better by using *OOP* and *Page Object Model*. The user can give as an input, the number of repetitions and also the server for the test. 
 
 
 ## Usage
