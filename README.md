@@ -20,6 +20,5 @@ The next steps when I have free time:
 - Run the selenium on Jenkins
 - Code optimization
 - Saving the result of all the test in a new database that I cannot work with that, for learning purpose
-- Presenting a history of results at the GUI version
 - Writing a good documentation and README file :)
 
